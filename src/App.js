@@ -2,42 +2,27 @@ import './App.css';
 import React, { useState } from 'react';
 import io from 'socket.io-client';
 import ChatRoom from './ChatRoom';
+import JoinRoomForm from './JoinRoomForm';
 
 const socket = io.connect('http://localhost:3001');
 
 function App() {
+    const [showChat, setShowChat] = useState(false);
     const [user, setUser] = useState('');
     const [room, setRoom] = useState('');
-    const [showChat, setShowChat] = useState(false);
-
-    const joinRoom = () => {
-        if (user !== '' && room !== '') {
-            socket.emit('join_room', room);
-            setShowChat(true);
-        }
-    };
 
     return (
         <div className="App">
+            <h1>EZ Chat</h1>
             {!showChat ? (
-                <div className="joinChat">
-                    <h3>Join Chat</h3>
-                    <input
-                        type="text"
-                        placeholder="Enter your name"
-                        onChange={(event) => {
-                            setUser(event.target.value);
-                        }}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Room Name"
-                        onChange={(event) => {
-                            setRoom(event.target.value);
-                        }}
-                    />
-                    <button onClick={joinRoom}>Join</button>
-                </div>
+                <JoinRoomForm
+                    socket={socket}
+                    setShowChat={setShowChat}
+                    user={user}
+                    setUser={setUser}
+                    room={room}
+                    setRoom={setRoom}
+                />
             ) : (
                 <ChatRoom socket={socket} user={user} room={room} />
             )}
