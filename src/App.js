@@ -35,6 +35,7 @@ function App() {
                     user={user}
                     room={room}
                     setShowChat={setShowChat}
+                    setRoom={setRoom}
                 />
             )}
             <ToastContainer position="top-center" autoClose={2000} />

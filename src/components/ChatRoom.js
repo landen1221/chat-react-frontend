@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/ChatRoom.css';
 
-function ChatRoom({ socket, user, room, setShowChat }) {
+function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
     const [message, setMessage] = useState('');
     const [messageList, setMessageList] = useState([]);
 
@@ -67,9 +67,14 @@ function ChatRoom({ socket, user, room, setShowChat }) {
         });
     }, [socket]);
 
+    const changeRooms = () => {
+        setShowChat(false);
+        setRoom('');
+    };
+
     return (
         <div className="ChatRoom">
-            <button onClick={() => setShowChat(false)} id="change-button">
+            <button onClick={changeRooms} id="change-button">
                 Change Room
             </button>
             <div className="room-name">
