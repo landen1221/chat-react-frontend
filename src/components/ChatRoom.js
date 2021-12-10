@@ -8,6 +8,9 @@ function ChatRoom({ socket, user, room, setShowChat }) {
     const [message, setMessage] = useState('');
     const [messageList, setMessageList] = useState([]);
 
+    // TODO: add if time available
+    const [isTyping, setIsTyping] = useState(false);
+
     const sendMessage = async () => {
         if (message.trim() === '') return; // prevent empty messages being sent
 
@@ -34,6 +37,10 @@ function ChatRoom({ socket, user, room, setShowChat }) {
     useEffect(() => {
         socket.on('joined_room', (user) => {
             toast.success(`${user} joined conversation!`);
+            setMessageList((msg) => [
+                ...msg,
+                { message: `${user} joined conversation!` },
+            ]);
         });
         // pull incoming messages from server & add to messageList
         socket.on('receive_message', (data) => {
@@ -59,25 +66,33 @@ function ChatRoom({ socket, user, room, setShowChat }) {
                             className="message"
                             id={user === msg.user ? 'self' : 'other'}
                         >
-                            <div
-                                id={
-                                    user === msg.user
-                                        ? 'message-self'
-                                        : 'message-other'
-                                }
-                            >
-                                <p id="message-content">{msg.message}</p>
-                            </div>
-                            <p
-                                className="message-info"
-                                id={
-                                    user === msg.user
-                                        ? 'message-info-self'
-                                        : 'message-info-other'
-                                }
-                            >
-                                {msg.user} --{msg.time}
-                            </p>
+                            {!msg.user ? (
+                                <p>{msg.message}</p>
+                            ) : (
+                                <div>
+                                    <div
+                                        id={
+                                            user === msg.user
+                                                ? 'message-self'
+                                                : 'message-other'
+                                        }
+                                    >
+                                        <p id="message-content">
+                                            {msg.message}
+                                        </p>
+                                    </div>
+                                    <p
+                                        className="message-info"
+                                        id={
+                                            user === msg.user
+                                                ? 'message-info-self'
+                                                : 'message-info-other'
+                                        }
+                                    >
+                                        {msg.user} --{msg.time}
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </ScrollToBottom>
