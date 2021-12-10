@@ -4,7 +4,8 @@ import io from 'socket.io-client';
 import ChatRoom from './components/ChatRoom';
 import JoinRoomForm from './components/JoinRoomForm';
 
-const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001/');
+const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001');
+// https://mlanden-chat-app.herokuapp.com/1
 
 function App() {
     const [showChat, setShowChat] = useState(false);

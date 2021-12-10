@@ -8,6 +8,7 @@ function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
     return (
         <div className="joinChat">
             <h3>Join Chat</h3>
+            <h4>Type room id to either create a room or join an active chat</h4>
             <input
                 type="text"
                 placeholder="Enter your name"
