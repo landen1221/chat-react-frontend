@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/ChatRoom.css';
 
 function ChatRoom({ socket, user, room, setShowChat }) {
@@ -31,6 +32,9 @@ function ChatRoom({ socket, user, room, setShowChat }) {
     };
 
     useEffect(() => {
+        socket.on('joined_room', (user) => {
+            toast.success(`${user} joined conversation!`);
+        });
         // pull incoming messages from server & add to messageList
         socket.on('receive_message', (data) => {
             setMessageList((msg) => [...msg, data]);

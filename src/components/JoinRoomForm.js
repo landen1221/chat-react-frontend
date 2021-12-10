@@ -3,14 +3,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../css/JoinRoomForm.css';
 
 function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
-    const joinRoom = () => {
+    const joinRoom = async () => {
         if (user === '') {
             toast.error('Please enter a name/username');
         } else if (room === '') {
             toast.error('Please enter a room name');
         } else {
             sessionStorage.setItem('user', user); // store user in session storage
-            socket.emit('join_room', room); // join room with id "room"
+            await socket.emit('join_room', { room, user }); // join room with id "room"
             setShowChat(true); // change from join view to chat view
         }
     };
