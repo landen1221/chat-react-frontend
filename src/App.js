@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 const socket = io.connect(
     process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
 );
-// https://mlanden-chat-app.herokuapp.com
 
 function App() {
     const [showChat, setShowChat] = useState(false);
@@ -35,6 +34,7 @@ function App() {
                     user={user}
                     room={room}
                     setShowChat={setShowChat}
+                    setRoom={setRoom}
                 />
             )}
             <ToastContainer position="top-center" autoClose={2000} />
