@@ -9,9 +9,9 @@ function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
         } else if (room === '') {
             toast.error('Please enter a room name');
         } else {
-            sessionStorage.setItem('user', user);
-            socket.emit('join_room', room);
-            setShowChat(true);
+            sessionStorage.setItem('user', user); // store user in session storage
+            socket.emit('join_room', room); // join room with id "room"
+            setShowChat(true); // change from join view to chat view
         }
     };
     return (

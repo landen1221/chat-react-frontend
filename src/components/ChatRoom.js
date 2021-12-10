@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
+
 import '../css/ChatRoom.css';
 
 function ChatRoom({ socket, user, room, setShowChat }) {
@@ -23,13 +24,14 @@ function ChatRoom({ socket, user, room, setShowChat }) {
         const time = formatAMPM();
 
         const messageData = { message, room, user, time };
-        await socket.emit('send_message', messageData);
+        await socket.emit('send_message', messageData); // send message & msgData to server
 
         setMessage('');
         setMessageList((msg) => [...msg, messageData]);
     };
 
     useEffect(() => {
+        // pull incoming messages from server & add to messageList
         socket.on('receive_message', (data) => {
             setMessageList((msg) => [...msg, data]);
         });

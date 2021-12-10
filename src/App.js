@@ -5,6 +5,7 @@ import ChatRoom from './components/ChatRoom';
 import JoinRoomForm from './components/JoinRoomForm';
 import { ToastContainer } from 'react-toastify';
 
+// Commect to the server socket
 const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001');
 // https://mlanden-chat-app.herokuapp.com/1
 
