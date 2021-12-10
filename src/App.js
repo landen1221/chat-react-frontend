@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import io from 'socket.io-client';
 import ChatRoom from './components/ChatRoom';
 import JoinRoomForm from './components/JoinRoomForm';
+import { ToastContainer } from 'react-toastify';
 
 const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001');
 // https://mlanden-chat-app.herokuapp.com/1
 
 function App() {
     const [showChat, setShowChat] = useState(false);
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState(sessionStorage.getItem('user') || '');
     const [room, setRoom] = useState('');
 
     return (
@@ -26,8 +27,14 @@ function App() {
                     setRoom={setRoom}
                 />
             ) : (
-                <ChatRoom socket={socket} user={user} room={room} />
+                <ChatRoom
+                    socket={socket}
+                    user={user}
+                    room={room}
+                    setShowChat={setShowChat}
+                />
             )}
+            <ToastContainer position="top-center" autoClose={3000} />
         </div>
     );
 }

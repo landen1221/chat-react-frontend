@@ -1,17 +1,26 @@
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../css/JoinRoomForm.css';
+
 function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
     const joinRoom = () => {
-        if (user !== '' && room !== '') {
+        if (user === '') {
+            toast.error('Please enter a name/username');
+        } else if (room === '') {
+            toast.error('Please enter a room name');
+        } else {
+            sessionStorage.setItem('user', user);
             socket.emit('join_room', room);
             setShowChat(true);
         }
     };
     return (
-        <div className="joinChat">
-            <h3>Join Chat</h3>
-            <h4>Type room id to either create a room or join an active chat</h4>
+        <div className="JoinRoomForm">
+            <h2>Join Chat</h2>
             <input
                 type="text"
-                placeholder="Enter your name"
+                placeholder="Enter name or username*"
+                value={user}
                 onChange={(event) => {
                     setUser(event.target.value);
                 }}
@@ -21,7 +30,7 @@ function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
             />
             <input
                 type="text"
-                placeholder="Room Name"
+                placeholder="Enter room name that you'd like to join or create*"
                 onChange={(event) => {
                     setRoom(event.target.value);
                 }}

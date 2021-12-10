@@ -1,6 +1,6 @@
 .ChatRoom {
     width: 75%;
-    max-width: 650px;
+    max-width: 500px;
     margin: 2rem auto;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -35,27 +35,59 @@
     display: none;
 }
 
-.ChatRoom .message-container #self,
-#other {
-    padding: 1rem 1.5rem;
+/* ********************************** */
+.ChatRoom .message-container #message-self,
+#message-other {
+    padding: 0.8rem 1.5rem;
     border-radius: 5px;
-    color: white;
-    width: 50%;
-    margin: 16px 6px;
+
+    font-size: 0.9rem;
+    margin: 16px 10px 0 8px;
 }
 
-.ChatRoom .message-container #self {
-    background-color: #5fa624;
+.ChatRoom .message-container #message-self {
+    background-color: #303030;
+    color: white;
+    /* float: right; */
+}
+
+.ChatRoom .message-container #message-other {
+    background-color: #7cacf8;
+    color: black;
+    /* float: left; */
+}
+
+.ChatRoom .message {
+    width: 70%;
+}
+
+.ChatRoom #self {
+    display: block;
     float: right;
 }
 
-.ChatRoom .message-container #other {
-    background-color: #0c4baa;
+.ChatRoom #other {
+    display: block;
     float: left;
 }
 
+/* ********************************** */
 .ChatRoom p {
     margin: 0;
+}
+
+.ChatRoom .message-info {
+    font-size: 0.8rem;
+}
+
+.ChatRoom #message-info-other {
+    text-align: left;
+    padding-left: 18px;
+}
+
+.ChatRoom #message-info-self {
+    text-align: right;
+    padding-right: 20px;
 }
 
 .ChatRoom .chat-input {
@@ -82,4 +114,15 @@
 
 .ChatRoom .chat-input input:focus {
     outline: none;
+}
+
+.ChatRoom #change-button {
+    background-color: #5fa624;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 2rem;
 }

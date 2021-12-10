@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import '../css/ChatRoom.css';
 
-function ChatRoom({ socket, user, room }) {
+function ChatRoom({ socket, user, room, setShowChat }) {
     const [message, setMessage] = useState('');
     const [messageList, setMessageList] = useState([]);
 
     const sendMessage = async () => {
-        if (message.trim() === '') return;
+        if (message.trim() === '') return; // prevent empty messages being sent
 
         function formatAMPM() {
             const date = new Date();
@@ -15,7 +15,7 @@ function ChatRoom({ socket, user, room }) {
             let minutes = date.getMinutes();
             let ampm = hours >= 12 ? 'pm' : 'am';
             hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
+            hours = hours ? hours : 12;
             minutes = minutes < 10 ? '0' + minutes : minutes;
             return hours + ':' + minutes + ' ' + ampm;
         }
@@ -37,6 +37,9 @@ function ChatRoom({ socket, user, room }) {
 
     return (
         <div className="ChatRoom">
+            <button onClick={() => setShowChat(false)} id="change-button">
+                Change Room
+            </button>
             <div className="room-name">
                 <h2>
                     Chat Room <u>{room}</u>
@@ -45,18 +48,30 @@ function ChatRoom({ socket, user, room }) {
             <div className="chat-body">
                 <ScrollToBottom className="message-container">
                     {messageList.map((msg, idx) => (
-                        <div>
+                        <div
+                            key={idx}
+                            className="message"
+                            id={user === msg.user ? 'self' : 'other'}
+                        >
                             <div
-                                className="message"
-                                key={idx}
-                                id={user === msg.user ? 'self' : 'other'}
+                                id={
+                                    user === msg.user
+                                        ? 'message-self'
+                                        : 'message-other'
+                                }
                             >
                                 <p id="message-content">{msg.message}</p>
                             </div>
-                            {/* FIXME: need to place this properly */}
-                            {/* <p id="message-info">
-                                {msg.user} {msg.time}
-                            </p> */}
+                            <p
+                                className="message-info"
+                                id={
+                                    user === msg.user
+                                        ? 'message-info-self'
+                                        : 'message-info-other'
+                                }
+                            >
+                                {msg.user} --{msg.time}
+                            </p>
                         </div>
                     ))}
                 </ScrollToBottom>

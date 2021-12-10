@@ -1,0 +1,30 @@
+/* create background for form */
+
+.JoinRoomForm {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 4rem;
+    max-width: 50%;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.JoinRoomForm input {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px auto;
+    display: block;
+}
+
+.JoinRoomForm button {
+    background-color: #5fa624;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+    margin: 1rem 11% 0 0;
+}
