@@ -1,0 +1,85 @@
+.ChatRoom {
+    width: 75%;
+    max-width: 650px;
+    margin: 2rem auto;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    height: 50vh;
+    /* border: 2px solid rgb(34, 34, 34); */
+}
+
+.ChatRoom .room-name {
+    background-color: rgb(34, 34, 34);
+    color: white;
+    padding: 8px 0;
+}
+
+.ChatRoom h2 {
+    margin: 0;
+}
+
+.ChatRoom .chat-body {
+    background-color: whitesmoke;
+    padding: 0.25rem 0.5rem;
+    height: 100%;
+}
+
+.ChatRoom .message-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.ChatRoom .message-container::-webkit-scrollbar {
+    display: none;
+}
+
+.ChatRoom .message-container #self,
+#other {
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    color: white;
+    width: 50%;
+    margin: 16px 6px;
+}
+
+.ChatRoom .message-container #self {
+    background-color: #5fa624;
+    float: right;
+}
+
+.ChatRoom .message-container #other {
+    background-color: #0c4baa;
+    float: left;
+}
+
+.ChatRoom p {
+    margin: 0;
+}
+
+.ChatRoom .chat-input {
+    width: 100%;
+}
+
+.ChatRoom .chat-input input {
+    width: 90%;
+    padding: 10px 0;
+    padding-left: 15px;
+    margin-right: -15px;
+    border: none;
+}
+
+.ChatRoom .chat-input button {
+    width: 10%;
+    padding: 10px 0;
+    border: none;
+    border-left: 1px solid black;
+    background-color: #5fa624;
+    color: white;
+    cursor: pointer;
+}
+
+.ChatRoom .chat-input input:focus {
+    outline: none;
+}

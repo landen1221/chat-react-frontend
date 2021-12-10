@@ -1,10 +1,10 @@
 import './App.css';
 import React, { useState } from 'react';
 import io from 'socket.io-client';
-import ChatRoom from './ChatRoom';
-import JoinRoomForm from './JoinRoomForm';
+import ChatRoom from './components/ChatRoom';
+import JoinRoomForm from './components/JoinRoomForm';
 
-const socket = io.connect('http://localhost:3001');
+const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001/');
 
 function App() {
     const [showChat, setShowChat] = useState(false);
@@ -14,6 +14,7 @@ function App() {
     return (
         <div className="App">
             <h1>EZ Chat</h1>
+            <hr />
             {!showChat ? (
                 <JoinRoomForm
                     socket={socket}
