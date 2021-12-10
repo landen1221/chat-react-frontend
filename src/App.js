@@ -6,8 +6,10 @@ import JoinRoomForm from './components/JoinRoomForm';
 import { ToastContainer } from 'react-toastify';
 
 // Commect to the server socket
-const socket = io.connect(process.env.API_ROUTE || 'http://localhost:3001');
-// https://mlanden-chat-app.herokuapp.com/1
+const socket = io.connect(
+    process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
+);
+// https://mlanden-chat-app.herokuapp.com
 
 function App() {
     const [showChat, setShowChat] = useState(false);

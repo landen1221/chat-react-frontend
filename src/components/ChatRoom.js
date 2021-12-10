@@ -9,7 +9,15 @@ function ChatRoom({ socket, user, room, setShowChat }) {
     const [messageList, setMessageList] = useState([]);
 
     // TODO: add if time available
-    const [isTyping, setIsTyping] = useState(false);
+    // const [isTyping, setIsTyping] = useState(false);
+    // useEffect(() => {
+    //     socket.on('typing', (user) => {
+    //         setIsTyping(user);
+    //     });
+    //     socket.on('stop_typing', () => {
+    //         setIsTyping('');
+    //     });
+    // }, [message]);
 
     const sendMessage = async () => {
         if (message.trim() === '') return; // prevent empty messages being sent
@@ -18,11 +26,22 @@ function ChatRoom({ socket, user, room, setShowChat }) {
             const date = new Date();
             let hours = date.getHours();
             let minutes = date.getMinutes();
-            let ampm = hours >= 12 ? 'pm' : 'am';
+            let ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
             hours = hours ? hours : 12;
             minutes = minutes < 10 ? '0' + minutes : minutes;
-            return hours + ':' + minutes + ' ' + ampm;
+            const timeZone = generateTimeZone(date);
+            return `${hours}:${minutes} ${ampm} (${timeZone})`;
+        }
+
+        function generateTimeZone(date) {
+            const timezone = date.toString().split('(')[1].split(')')[0];
+            const splitZone = timezone.split(' ');
+            let output = '';
+            for (let word of splitZone) {
+                output += word[0];
+            }
+            return output;
         }
 
         const time = formatAMPM();
@@ -67,7 +86,7 @@ function ChatRoom({ socket, user, room, setShowChat }) {
                             id={user === msg.user ? 'self' : 'other'}
                         >
                             {!msg.user ? (
-                                <p>{msg.message}</p>
+                                <p id="new-user">{msg.message}</p>
                             ) : (
                                 <div>
                                     <div

@@ -1,11 +1,24 @@
 .ChatRoom {
-    width: 75%;
+    /* width: 75%; */
     max-width: 500px;
+    min-width: none;
     margin: 2rem auto;
     overflow-wrap: break-word;
     hyphens: auto;
     height: 50vh;
     /* border: 2px solid rgb(34, 34, 34); */
+}
+
+@media (max-width: 750px) {
+    .ChatRoom {
+        width: 95%;
+    }
+}
+
+@media (min-width: 750px) {
+    .ChatRoom {
+        width: 70%;
+    }
 }
 
 .ChatRoom .room-name {
@@ -38,7 +51,7 @@
 /* ********************************** */
 .ChatRoom .message-container #message-self,
 #message-other {
-    padding: 0.8rem 1.5rem;
+    padding: 0.5rem 1.1rem;
     border-radius: 5px;
 
     font-size: 0.9rem;
@@ -74,6 +87,16 @@
 /* ********************************** */
 .ChatRoom p {
     margin: 0;
+    text-align: left;
+}
+
+.ChatRoom #new-user {
+    font-size: 0.8rem;
+    /* padding-left: 1rem; */
+    font-style: italic;
+    margin: 8px 0 0 0;
+    text-align: center;
+    color: #4b8ffc;
 }
 
 .ChatRoom .message-info {
@@ -99,6 +122,7 @@
     padding: 10px 0;
     padding-left: 15px;
     margin-right: -15px;
+
     border: none;
 }
 
