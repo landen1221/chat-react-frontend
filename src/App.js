@@ -9,7 +9,6 @@ import { ToastContainer } from 'react-toastify';
 const socket = io.connect(
     process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
 );
-// https://mlanden-chat-app.herokuapp.com
 
 function App() {
     const [showChat, setShowChat] = useState(false);

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import '../css/ChatRoom.css';
 
 function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
@@ -22,6 +20,7 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
     const sendMessage = async () => {
         if (message.trim() === '') return; // prevent empty messages being sent
 
+        // Following 2 functions format the time shown in the chat
         function formatAMPM() {
             const date = new Date();
             let hours = date.getHours();
@@ -55,7 +54,6 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
 
     useEffect(() => {
         socket.on('joined_room', (user) => {
-            toast.success(`${user} joined conversation!`);
             setMessageList((msg) => [
                 ...msg,
                 { message: `${user} joined conversation!` },
@@ -67,7 +65,7 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
         });
     }, [socket]);
 
-    const changeRooms = () => {
+    const changeRooms = async () => {
         setShowChat(false);
         setRoom('');
     };
@@ -126,6 +124,7 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
                     type="text"
                     value={message}
                     placeholder="Message..."
+                    autoFocus
                     onChange={(event) => {
                         setMessage(event.target.value);
                     }}
