@@ -59,13 +59,13 @@
 }
 
 .ChatRoom .message-container #message-self {
-    background-color: #303030;
+    /* background-color: #303030; */
     color: white;
     /* float: right; */
 }
 
 .ChatRoom .message-container #message-other {
-    background-color: #7cacf8;
+    /* background-color: #7cacf8; */
     color: black;
     /* float: left; */
 }
