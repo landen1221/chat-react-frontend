@@ -18,6 +18,7 @@ function App() {
         );
         setSocket(socket);
         setIsConnected(true);
+        console.log('this prints');
     }, [isConnected]);
 
     return (

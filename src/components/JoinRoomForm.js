@@ -14,6 +14,7 @@ function JoinRoomForm({ socket, setShowChat, user, setUser, room, setRoom }) {
             setShowChat(true); // change from join view to chat view
         }
     };
+
     return (
         <div className="JoinRoomForm">
             <h2>Join Chat</h2>
