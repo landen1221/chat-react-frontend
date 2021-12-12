@@ -2,20 +2,50 @@ import React, { useEffect, useState } from 'react';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import '../css/ChatRoom.css';
 
-function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
+function ChatRoom({
+    socket,
+    user,
+    room,
+    setShowChat,
+    setRoom,
+    setIsConnected,
+}) {
     const [message, setMessage] = useState('');
     const [messageList, setMessageList] = useState([]);
+    const [myColor, setMyColor] = useState([]);
+    const [otherColor, setOtherColor] = useState([]);
 
-    // TODO: add if time available
-    // const [isTyping, setIsTyping] = useState(false);
-    // useEffect(() => {
-    //     socket.on('typing', (user) => {
-    //         setIsTyping(user);
-    //     });
-    //     socket.on('stop_typing', () => {
-    //         setIsTyping('');
-    //     });
-    // }, [message]);
+    useEffect(() => {
+        const myColors = [
+            '#264653',
+            '#264653',
+            '#8B6969',
+            '#A62A2A',
+            '#5C3317',
+            '#3063A5',
+            '#000080',
+        ];
+
+        const otherColors = [
+            '#E9C46A',
+            '#E76F51',
+            '#6495ED',
+            '#900C3F',
+            '#008080',
+            '#CD5C5C',
+            '#E9967A',
+        ];
+
+        const getColor = (selection) => {
+            return {
+                backgroundColor:
+                    selection[Math.floor(Math.random() * selection.length)],
+            };
+        };
+
+        setMyColor(getColor(myColors));
+        setOtherColor(getColor(otherColors));
+    }, []);
 
     const sendMessage = async () => {
         if (message.trim() === '') return; // prevent empty messages being sent
@@ -53,6 +83,7 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
     };
 
     useEffect(() => {
+        // Let other users know a new user has joined
         socket.on('joined_room', (user) => {
             setMessageList((msg) => [
                 ...msg,
@@ -63,16 +94,25 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
         socket.on('receive_message', (data) => {
             setMessageList((msg) => [...msg, data]);
         });
+        // get all messages for a given room
+        socket.on('get_messages', (data) => {
+            if (!data) return;
+            setMessageList([...data]);
+        });
+        return () => {
+            socket.disconnect();
+            setIsConnected(false);
+        };
     }, [socket]);
 
-    const changeRooms = async () => {
+    const leaveRoom = () => {
         setShowChat(false);
         setRoom('');
     };
 
     return (
         <div className="ChatRoom">
-            <button onClick={changeRooms} id="change-button">
+            <button onClick={leaveRoom} id="change-button">
                 Change Room
             </button>
             <div className="room-name">
@@ -97,6 +137,11 @@ function ChatRoom({ socket, user, room, setShowChat, setRoom }) {
                                             user === msg.user
                                                 ? 'message-self'
                                                 : 'message-other'
+                                        }
+                                        style={
+                                            user === msg.user
+                                                ? myColor
+                                                : otherColor
                                         }
                                     >
                                         <p id="message-content">

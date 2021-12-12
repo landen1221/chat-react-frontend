@@ -1,19 +1,24 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import ChatRoom from './components/ChatRoom';
 import JoinRoomForm from './components/JoinRoomForm';
 import { ToastContainer } from 'react-toastify';
 
-// Commect to the server socket
-const socket = io.connect(
-    process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
-);
-
 function App() {
     const [showChat, setShowChat] = useState(false);
     const [user, setUser] = useState(sessionStorage.getItem('user') || '');
     const [room, setRoom] = useState('');
+    const [isConnected, setIsConnected] = useState(false);
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        const socket = io.connect(
+            process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
+        );
+        setSocket(socket);
+        setIsConnected(true);
+    }, [isConnected]);
 
     return (
         <div className="App">
@@ -35,6 +40,7 @@ function App() {
                     room={room}
                     setShowChat={setShowChat}
                     setRoom={setRoom}
+                    setIsConnected={setIsConnected}
                 />
             )}
             <ToastContainer position="top-center" autoClose={2000} />
