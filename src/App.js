@@ -14,11 +14,11 @@ function App() {
 
     useEffect(() => {
         const socket = io.connect(
-            process.env.REACT_APP_BASE_URL || 'http://localhost:3001'
+            process.env.REACT_APP_BASE_URL ||
+                'https://mlanden-chat-app.herokuapp.com'
         );
         setSocket(socket);
         setIsConnected(true);
-        console.log('this prints');
     }, [isConnected]);
 
     return (
