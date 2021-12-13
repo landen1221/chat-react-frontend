@@ -14,8 +14,7 @@ function App() {
 
     useEffect(() => {
         const socket = io.connect(
-            process.env.REACT_APP_BASE_URL ||
-                'https://mlanden-chat-app.herokuapp.com'
+            process.env.REACT_APP_BASE_URL || 'https://localhost:3001'
         );
         setSocket(socket);
         setIsConnected(true);
